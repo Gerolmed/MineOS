@@ -2,4 +2,5 @@ softdepend: ['Vault']
 depend: ['ProtocolLib']
 main: net.mysticsouls.pc.Main
 version: 1.0
-name: MeinOS
+name: MineOS
+author: Gerolmed

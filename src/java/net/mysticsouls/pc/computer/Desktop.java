@@ -31,7 +31,7 @@ public class Desktop implements Drawable{
 	}
 
 	/**
-	 * @param slot - use {@link net.mysticsouls.pc.utils.Displayhelper}
+	 * @param slot - use {@link net.mysticsouls.pc.utils.DisplayHelper}
 	 */
 	public App getApp(int slot) {
 		if(slot < apps.length)
@@ -40,7 +40,7 @@ public class Desktop implements Drawable{
 	}
 	
 	/**Set a App onto a specific desktop location
-	 * @param slot - use {@link net.mysticsouls.pc.utils.Displayhelper}
+	 * @param slot - use {@link net.mysticsouls.pc.utils.DisplayHelper}
 	 * @param app
 	 */
 	public void setApp(int slot, App app) {

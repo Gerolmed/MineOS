@@ -115,12 +115,11 @@ public class ItemUtils {
     	ItemMeta meta = i.getItemMeta();
     	meta.setDisplayName(name);
     	if(lore != null){
-	    	ArrayList<String> metalore = new ArrayList<String>();
+	    	ArrayList<String> metalore = new ArrayList<>();
 	    	metalore.add(lore);
 	    	meta.setLore(metalore);
     	}
-    	meta.spigot().setUnbreakable(unbreakable);
-    	i.setItemMeta(meta);
+		meta.setUnbreakable(true);
 		return i;
     	
     }
@@ -138,9 +137,9 @@ public class ItemUtils {
     	ItemMeta meta = i.getItemMeta();
     	meta.setDisplayName(name);
     	if(lore != null){
-    	ArrayList<String> metalore = new ArrayList<String>();
-    	metalore.add(lore);
-    	meta.setLore(metalore);
+			ArrayList<String> metalore = new ArrayList<String>();
+			metalore.add(lore);
+			meta.setLore(metalore);
     	}
     	i.setItemMeta(meta);
 		return i;

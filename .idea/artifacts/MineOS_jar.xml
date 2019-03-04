@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MineOS:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/MineOS_jar</output-path>
+    <root id="archive" name="MineOS.jar">
+      <element id="module-output" name="MineOS" />
+    </root>
+  </artifact>
+</component>
