@@ -16,8 +16,10 @@ import net.mysticsouls.pc.events.ClickPCEvent;
 import net.mysticsouls.pc.events.JoinLeaveEvent;
 import net.mysticsouls.pc.user.UserManager;
 import net.mysticsouls.pc.utils.CooldownManager;
+import net.mysticsouls.pc.utils.Settings;
 import net.mysticsouls.pc.vault.MoneyManager;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,6 +35,10 @@ public class Main extends JavaPlugin {
     private ConfigHolder configHolder;
     private MoneyManager moneyManager;
     private Backend backend;
+
+    static {
+        ConfigurationSerialization.registerClass(Settings.class);
+    }
 
     public static Main getInstance() {
         return instance;
