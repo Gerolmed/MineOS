@@ -56,15 +56,13 @@ public class TestApp extends App {
         if (input == Input.JUMP) {
 
             if (clicked) {
-                shutdown();
+                getComputer().stopApp();
                 return;
             }
 
             clicked = true;
             getComputer().render();
         }
-
-        System.out.println(input);
 
         super.handleInput(input);
     }

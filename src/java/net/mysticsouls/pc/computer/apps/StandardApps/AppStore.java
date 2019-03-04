@@ -1,5 +1,6 @@
 package net.mysticsouls.pc.computer.apps.StandardApps;
 
+import net.mysticsouls.pc.Main;
 import net.mysticsouls.pc.computer.Computer;
 import net.mysticsouls.pc.computer.apps.App;
 import net.mysticsouls.pc.computer.apps.SaleInformation;
@@ -8,7 +9,7 @@ import net.mysticsouls.pc.computer.render.Render;
 import net.mysticsouls.pc.computer.render.Render.RenderType;
 import net.mysticsouls.pc.textures.BasicResources;
 import net.mysticsouls.pc.utils.ItemUtils;
-import net.mysticsouls.pc.vault.MoneyUtils;
+import net.mysticsouls.pc.vault.MoneyManager;
 import org.bukkit.Material;
 import org.bukkit.map.MinecraftFont;
 
@@ -19,10 +20,12 @@ public class AppStore extends App {
     private App[] apps;
     private int currentItemToDisplay = 0;
     private App appToPurchase;
+    private MoneyManager moneyManager;
     private ShopState state = ShopState.SHOW_LIST;
 
     public AppStore() {
         super("appstore", ItemUtils.createItem(Material.WOOL, "§6AppStore", null), BasicResources.getBasicImage("icons/shop.png"), "AppStore");
+        moneyManager = Main.getInstance().getMoneyManager();
     }
 
     @Override
@@ -117,13 +120,13 @@ public class AppStore extends App {
 
         if (info.getPrice() > 0) {
             UUID id = getComputer().getUser().getUUID();
-            double balance = MoneyUtils.getMoney(id);
+            double balance = moneyManager.getMoney(id);
 
             if (balance < info.getPrice()) {
                 return false;
             }
 
-            MoneyUtils.payMoney(id, info.getPrice());
+            moneyManager.payMoney(id, info.getPrice());
         }
 
         getComputer().addApp(app);
