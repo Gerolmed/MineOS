@@ -1,6 +1,7 @@
 package net.mysticsouls.pc.utils;
 
 
+import org.bukkit.Bukkit;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -9,22 +10,14 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.bukkit.Bukkit;
-
-
 
 /**
-
  * An utility class that simplifies reflection in Bukkit plugins.
-
  *
-
  * @author Kristian
-
  */
 
 public final class Reflections {
-
 
 
     // Deduce the net.minecraft.server.v* package
@@ -40,23 +33,16 @@ public final class Reflections {
     private static Pattern MATCH_VARIABLE = Pattern.compile("\\{([^\\}]+)\\}");
 
 
-
     private Reflections() {
 
     }
 
 
-
     /**
-
      * Expand variables such as "{nms}" and "{obc}" to their corresponding packages.
-
      *
-
      * @param name the full name of the class
-
      * @return the expanded string
-
      */
 
     private static String expandVariables(String name) {
@@ -66,13 +52,11 @@ public final class Reflections {
         Matcher matcher = MATCH_VARIABLE.matcher(name);
 
 
-
         while (matcher.find()) {
 
             String variable = matcher.group(1);
 
             String replacement;
-
 
 
             // Expand all detected variables
@@ -94,7 +78,6 @@ public final class Reflections {
                 throw new IllegalArgumentException("Unknown variable: " + variable);
 
 
-
             // Assume the expanded variables are all packages, and append a dot
 
             if (replacement.length() > 0 && matcher.end() < name.length() && name.charAt(matcher.end()) != '.')
@@ -112,17 +95,11 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Retrieve a class by its canonical name.
-
      *
-
      * @param canonicalName the canonical name
-
      * @return the class
-
      */
 
     private static Class<?> getCanonicalClass(String canonicalName) {
@@ -140,63 +117,56 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Retrieve a class from its full name.
-
+     * <p>
      * <p/>
-
+     * <p>
      * Strings enclosed with curly brackets such as {TEXT} will be replaced according
-
+     * <p>
      * to the following table:
-
+     * <p>
      * <p/>
-
-     * <table border="1">
-
-     * <tr>
-
-     * <th>Variable</th>
-
-     * <th>Content</th>
-
-     * </tr>
-
-     * <tr>
-
-     * <td>{nms}</td>
-
-     * <td>Actual package name of net.minecraft.server.VERSION</td>
-
-     * </tr>
-
-     * <tr>
-
-     * <td>{obc}</td>
-
-     * <td>Actual pacakge name of org.bukkit.craftbukkit.VERSION</td>
-
-     * </tr>
-
-     * <tr>
-
-     * <td>{version}</td>
-
-     * <td>The current Minecraft package VERSION, if any.</td>
-
-     * </tr>
-
-     * </table>
-
      *
-
+     * <table border="1">
+     *
+     * <tr>
+     *
+     * <th>Variable</th>
+     *
+     * <th>Content</th>
+     *
+     * </tr>
+     *
+     * <tr>
+     *
+     * <td>{nms}</td>
+     *
+     * <td>Actual package name of net.minecraft.server.VERSION</td>
+     *
+     * </tr>
+     *
+     * <tr>
+     *
+     * <td>{obc}</td>
+     *
+     * <td>Actual pacakge name of org.bukkit.craftbukkit.VERSION</td>
+     *
+     * </tr>
+     *
+     * <tr>
+     *
+     * <td>{version}</td>
+     *
+     * <td>The current Minecraft package VERSION, if any.</td>
+     *
+     * </tr>
+     *
+     * </table>
+     *
      * @param lookupName the class name with variables
-
      * @return the looked up class
-
      * @throws IllegalArgumentException If a variable or class could not be found
-
      */
 
     public static Class<?> getClass(String lookupName) {
@@ -206,21 +176,13 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Search for the first publicly and privately defined constructor of the given name and parameter count.
-
      *
-
      * @param className lookup name of the class, see {@link #getClass(String)}
-
      * @param params    the expected parameters
-
      * @return an object that invokes this constructor
-
      * @throws IllegalStateException If we cannot find this method
-
      */
 
     public static ConstructorInvoker getConstructor(String className, Class<?>... params) {
@@ -230,21 +192,13 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Search for the first publicly and privately defined constructor of the given name and parameter count.
-
      *
-
      * @param clazz  a class to start with
-
      * @param params the expected parameters
-
      * @return an object that invokes this constructor
-
      * @throws IllegalStateException If we cannot find this method
-
      */
 
     public static ConstructorInvoker getConstructor(Class<?> clazz, Class<?>... params) {
@@ -252,7 +206,6 @@ public final class Reflections {
         for (final Constructor<?> constructor : clazz.getDeclaredConstructors()) {
 
             if (Arrays.equals(constructor.getParameterTypes(), params)) {
-
 
 
                 constructor.setAccessible(true);
@@ -288,17 +241,11 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Retrieve a class in the org.bukkit.craftbukkit.VERSION.* package.
-
      *
-
      * @param name the name of the class, excluding the package
-
      * @throws IllegalArgumentException If the class doesn't exist
-
      */
 
     public static Class<?> getCraftBukkitClass(String name) {
@@ -308,21 +255,13 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Retrieve a field accessor for a specific field type and name.
-
      *
-
      * @param target    the target type
-
      * @param name      the name of the field, or NULL to ignore
-
      * @param fieldType a compatible field type
-
      * @return the field accessor
-
      */
 
     public static <T> FieldAccessor<T> getField(Class<?> target, String name, Class<T> fieldType) {
@@ -332,21 +271,13 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Retrieve a field accessor for a specific field type and name.
-
      *
-
      * @param className lookup name of the class, see {@link #getClass(String)}
-
      * @param name      the name of the field, or NULL to ignore
-
      * @param fieldType a compatible field type
-
      * @return the field accessor
-
      */
 
     public static <T> FieldAccessor<T> getField(String className, String name, Class<T> fieldType) {
@@ -356,21 +287,13 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Retrieve a field accessor for a specific field type and name.
-
      *
-
      * @param target    the target type
-
      * @param fieldType a compatible field type
-
      * @param index     the number of compatible fields to skip
-
      * @return the field accessor
-
      */
 
     public static <T> FieldAccessor<T> getField(Class<?> target, Class<T> fieldType, int index) {
@@ -380,21 +303,13 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Retrieve a field accessor for a specific field type and name.
-
      *
-
      * @param className lookup name of the class, see {@link #getClass(String)}
-
      * @param fieldType a compatible field type
-
      * @param index     the number of compatible fields to skip
-
      * @return the field accessor
-
      */
 
     public static <T> FieldAccessor<T> getField(String className, Class<T> fieldType, int index) {
@@ -402,7 +317,6 @@ public final class Reflections {
         return getField(getClass(className), fieldType, index);
 
     }
-
 
 
     // Common method
@@ -414,7 +328,6 @@ public final class Reflections {
             if ((name == null || field.getName().equals(name)) && fieldType.isAssignableFrom(field.getType()) && index-- <= 0) {
 
                 field.setAccessible(true);
-
 
 
                 // A function for retrieving a specific field value
@@ -440,7 +353,6 @@ public final class Reflections {
                     }
 
 
-
                     @Override
 
                     public void set(Object target, Object value) {
@@ -456,7 +368,6 @@ public final class Reflections {
                         }
 
                     }
-
 
 
                     @Override
@@ -476,7 +387,6 @@ public final class Reflections {
         }
 
 
-
         // Search in parent classes
 
         if (target.getSuperclass() != null)
@@ -488,23 +398,14 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Search for the first publicly and privately defined method of the given name and parameter count.
-
      *
-
      * @param className  lookup name of the class, see {@link #getClass(String)}
-
      * @param methodName the method name, or NULL to skip
-
      * @param params     the expected parameters
-
      * @return an object that invokes this specific method
-
      * @throws IllegalStateException If we cannot find this method
-
      */
 
     public static MethodInvoker getMethod(String className, String methodName, Class<?>... params) {
@@ -514,23 +415,14 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Search for the first publicly and privately defined method of the given name and parameter count.
-
      *
-
      * @param clazz      a class to start with
-
      * @param methodName the method name, or NULL to skip
-
      * @param params     the expected parameters
-
      * @return an object that invokes this specific method
-
      * @throws IllegalStateException If we cannot find this method
-
      */
 
     public static MethodInvoker getMethod(Class<?> clazz, String methodName, Class<?>... params) {
@@ -540,19 +432,12 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Search for the first publicly and privately defined method of the given name and parameter count.
-
      *
-
      * @param clazz  target class
-
      * @param method the method name
-
      * @return the method found
-
      */
 
     public static Method getMethodSimply(Class<?> clazz, String method) {
@@ -564,17 +449,11 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Retrieve a class in the net.minecraft.server.VERSION.* package.
-
      *
-
      * @param name the name of the class, excluding the package
-
      * @throws IllegalArgumentException If the class doesn't exist
-
      */
 
     public static Class<?> getMinecraftClass(String name) {
@@ -584,25 +463,15 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Search for the first publicly and privately defined method of the given name and parameter count.
-
      *
-
      * @param clazz      a class to start with
-
      * @param methodName the method name, or NULL to skip
-
      * @param returnType the expected return type, or NULL to ignore
-
      * @param params     the expected parameters
-
      * @return an object that invokes this specific method
-
      * @throws IllegalStateException If we cannot find this method
-
      */
 
     public static MethodInvoker getTypedMethod(Class<?> clazz, String methodName, Class<?> returnType, Class<?>... params) {
@@ -614,7 +483,6 @@ public final class Reflections {
                     (returnType == null) || method.getReturnType().equals(returnType) &&
 
                     Arrays.equals(method.getParameterTypes(), params)) {
-
 
 
                 method.setAccessible(true);
@@ -656,25 +524,18 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * Retrieve a class from its full name, without knowing its type on compile time.
-
+     * <p>
      * <p/>
-
+     * <p>
      * This is useful when looking up fields by a NMS or OBC type.
-
+     * <p>
      * <p/>
-
      *
-
      * @param lookupName the class name with variables
-
      * @return the class
-
      * @see {@link #getClass()} for more information
-
      */
 
     public static Class<Object> getUntypedClass(String lookupName) {
@@ -686,7 +547,6 @@ public final class Reflections {
         return clazz;
 
     }
-
 
 
     public static <T> T newInstance(Class<T> type) {
@@ -706,25 +566,17 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * An interface for invoking a specific constructor.
-
      */
 
     public interface ConstructorInvoker {
 
         /**
-
          * Invoke a constructor for a specific class.
-
          *
-
          * @param arguments the arguments to pass to the constructor.
-
          * @return the constructed object.
-
          */
 
         public Object invoke(Object... arguments);
@@ -732,27 +584,18 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * An interface for invoking a specific method.
-
      */
 
     public interface MethodInvoker {
 
         /**
-
          * Invoke a method on a specific target object.
-
          *
-
          * @param target    the target object, or NULL for a static method.
-
          * @param arguments the arguments to pass to the method.
-
          * @return the return value, or NULL if is void.
-
          */
 
         public Object invoke(Object target, Object... arguments);
@@ -760,67 +603,44 @@ public final class Reflections {
     }
 
 
-
     /**
-
      * An interface for retrieving the field content.
-
      *
-
      * @param <T> field type
-
      */
 
     public interface FieldAccessor<T> {
 
         /**
-
          * Retrieve the content of a field.
-
          *
-
          * @param target the target object, or NULL for a static field
-
          * @return the value of the field
-
          */
 
         public T get(Object target);
 
 
-
         /**
-
          * Set the content of a field.
-
          *
-
          * @param target the target object, or NULL for a static field
-
          * @param value  the new value of the field
-
          */
 
         public void set(Object target, Object value);
 
 
-
         /**
-
          * Determine if the given object has this field.
-
          *
-
          * @param target the object to test
-
          * @return TRUE if it does, FALSE otherwise
-
          */
 
         public boolean hasField(Object target);
 
     }
-
 
 
 }
