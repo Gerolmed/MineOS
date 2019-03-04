@@ -40,8 +40,10 @@ public class TestApp extends App{
 	public void handleInput(Input input) {
 		if(input == null)
 			return;
+
+		System.out.println("1"+input);
 		
-		String cdManager = "desktopCooldown";
+		String cdManager = "testInteractCooldown";
 		if(getComputer().getPlugin().getCooldownManager().isOnCooldown(getComputer().getUser().getUUID(), cdManager))
 			return;
 		getComputer().getPlugin().getCooldownManager().add(getComputer().getUser().getUUID(), cdManager, 10);
@@ -51,11 +53,14 @@ public class TestApp extends App{
 			if(clicked) {
 				shutdown();
 				return;
-				
 			}
 			
 			clicked = true;
-		} 
+			getComputer().render();
+		}
+
+		System.out.println(input);
+
 		super.handleInput(input);
 	}
 

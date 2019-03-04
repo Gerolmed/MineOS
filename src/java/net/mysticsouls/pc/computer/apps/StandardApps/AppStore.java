@@ -56,11 +56,6 @@ public class AppStore extends App {
 	private void UpdateApps() {
 		apps = getComputer().getPlugin().getAppManager().getAvailableApps(getComputer().getUser());
 	}
-
-	@Override
-	protected App setComputer(Computer computer) {
-		return super.setComputer(computer);
-	}
 	
 
 	@Override
