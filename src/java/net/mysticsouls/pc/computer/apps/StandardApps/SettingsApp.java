@@ -49,12 +49,16 @@ public class SettingsApp extends App {
 
     @Override
     public Render draw(Render render) {
-        Inventory inventory = render.getInventory();
+        if(render.getRenderType() == Render.RenderType.INVENTORY) {
+            Inventory inventory = render.getInventory();
 
-        for(int i = 0; i < inventory.getSize(); i++)
-            inventory.setItem(i, ItemUtils.createItem(Material.STAINED_GLASS_PANE,"§6 ", null));
+            for(int i = 0; i < inventory.getSize(); i++)
+                inventory.setItem(i, ItemUtils.createItem(Material.STAINED_GLASS_PANE,"§6 ", null));
 
-        inventory.setItem(0, ItemUtils.addLore(ItemUtils.createItem(Material.PAINTING, settingRenderType, "§7Click to toggle"), "§6Current: §a"+settings.getRenderType()));
+            inventory.setItem(0, ItemUtils.addLore(ItemUtils.createItem(Material.PAINTING, settingRenderType, "§7Click to toggle"), "§6Current: §a"+settings.getRenderType()));
+        } else {
+            //TODO: Map view
+        }
 
         return super.draw(render);
     }
