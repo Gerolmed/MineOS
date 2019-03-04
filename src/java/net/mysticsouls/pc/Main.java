@@ -8,6 +8,7 @@ import net.mysticsouls.pc.backend.FileBackend;
 import net.mysticsouls.pc.commands.MineOSBaseCommand;
 import net.mysticsouls.pc.computer.apps.AppManager;
 import net.mysticsouls.pc.computer.apps.StandardApps.AppStore;
+import net.mysticsouls.pc.computer.apps.StandardApps.SettingsApp;
 import net.mysticsouls.pc.computer.apps.test.TestApp;
 import net.mysticsouls.pc.computer.input.InputListener;
 import net.mysticsouls.pc.computer.input.SeatManager;
@@ -61,6 +62,7 @@ public class Main extends JavaPlugin {
 
         //Register Default Apps - START
         appManager.registerApp(new AppStore());
+        appManager.registerApp(new SettingsApp());
         appManager.registerApp(new TestApp());
         //Register Default Apps - END
 
