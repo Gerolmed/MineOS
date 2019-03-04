@@ -4,16 +4,16 @@ import net.mysticsouls.pc.Main;
 
 import java.util.UUID;
 
-public class MoneyUtils {
+public class MoneyManager {
 
-    private static VaultMoney money;
+    private VaultMoney money;
 
-    public static void init(Main plugin) {
+    public MoneyManager(Main plugin) {
         if (plugin.getServer().getPluginManager().getPlugin("Vault") != null)
             money = new VaultMoney(plugin);
     }
 
-    public static double getMoney(UUID id) {
+    public double getMoney(UUID id) {
 
         if (money == null)
             return 0;
@@ -22,7 +22,7 @@ public class MoneyUtils {
     }
 
 
-    public static void payMoney(UUID id, double amount) {
+    public void payMoney(UUID id, double amount) {
 
         if (money == null)
             return;
