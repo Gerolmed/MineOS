@@ -28,7 +28,7 @@ public class CooldownManager {
         return cds.get(id).get(s);
     }
 
-    public void Update(JavaPlugin m) {
+    public void update(JavaPlugin m) {
         Bukkit.getScheduler().runTaskTimer(m, () -> {
             HashMap<UUID, String> toRem = new HashMap<>();
 
